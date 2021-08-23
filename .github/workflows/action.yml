@@ -32,18 +32,11 @@ jobs:
 
       - name: InstallCustomLibraries
         run: |
+             sudo apt-get update
              sudo apt-get install libffi-dev
              pip3 install cffi
-             pip3 install requests
-             pip3 install urllib3
              pip3 install charset-normalizer
-             pip3 install idna
-             pip3 install plyer
-             pip3 install opencv-python
-             pip3 install numpy
-             sudo apt-get update
              sudo apt-get install libsdl2-ttf-dev
-             pip3 install imutils
              pip3 install mediapipe
              
       - name: InstallBuildozer        
