@@ -1,0 +1,79 @@
+name: Build_Python
+on: 
+  push:
+    paths-ignore:
+      - 'README.md'
+    branches: 
+      [ main ]
+jobs:
+  Android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Python3.7
+        run: |
+             python3 --version
+             python --version
+             pip3 --version
+             pip --version
+
+      - name: InstallCython        
+        run: |
+             sudo pip3 uninstall cython
+             sudo apt-get remove cython
+             pip3 install --upgrade pip
+             pip3 install cython
+
+      - name: InstallKivy        
+        run: |
+             pip3 install kivy[full] kivy_examples
+             pip3 install kivymd
+
+      - name: InstallCustomLibraries
+        run: |
+             sudo apt-get install libffi-dev
+             pip3 install cffi
+             pip3 install requests
+             pip3 install urllib3
+             pip3 install charset-normalizer
+             pip3 install idna
+             pip3 install plyer
+             pip3 install opencv-python
+             pip3 install numpy
+             sudo apt-get update
+             sudo apt-get install libsdl2-ttf-dev
+             pip3 install imutils
+             pip3 install mediapipe
+             
+      - name: InstallBuildozer        
+        run: |
+             sudo apt-get install -y python3-setuptools
+             pip3 install buildozer
+             pip3 install https://github.com/kivy/buildozer/archive/master.zip
+             git clone https://github.com/kivy/buildozer
+             cd buildozer
+             python3 setup.py build
+             pip3 install -e .
+             export PATH=~/.local/bin/:$PATH
+             . ~/.bashrc
+             cd ../../
+
+      - name: Prepare        
+        run: |
+             cd app
+             buildozer init
+             python3 ../buildozer_spec.py
+             cat buildozer.spec
+
+      - name: Build
+        run: |
+             cd app
+             buildozer android debug deploy
+
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: DistributiveAndroid
+          path: |
+            app/bin/
