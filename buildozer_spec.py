@@ -11,8 +11,6 @@ s = s.replace("#p4a.branch = master", "p4a.branch = develop")
 s = s.replace("osx.python_version = 3", "osx.python_version = 3.7.9")
 
 s = s.replace("android.arch = armeabi-v7a", "android.arch = arm64-v8a")
-#s = s.replace("android.arch = armeabi-v7a", "android.arch = x86_64")
-#s = s.replace("#android.add_libs_x86 = libs/android-x86/*.so", "android.add_libs_x86_64 = libs/android-x86-64/*.so")
 
 
 f = open("buildozer.spec", 'w')
