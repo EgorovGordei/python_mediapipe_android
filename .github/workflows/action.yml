@@ -11,43 +11,41 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Python3.7
+      - name: PythonVersion
         run: |
-             python3 --version
              python --version
-             pip3 --version
              pip --version
 
       - name: InstallCython        
         run: |
-             sudo pip3 uninstall cython
+             sudo pip uninstall cython
              sudo apt-get remove cython
-             pip3 install --upgrade pip
-             pip3 install cython
+             pip install --upgrade pip
+             pip install cython
 
       - name: InstallKivy        
         run: |
-             pip3 install kivy[full] kivy_examples
-             pip3 install kivymd
+             pip install kivy[full] kivy_examples
+             pip install kivymd
 
       - name: InstallCustomLibraries
         run: |
              sudo apt-get update
              sudo apt-get install libffi-dev
-             pip3 install cffi
-             pip3 install charset-normalizer
+             pip install cffi
+             pip install charset-normalizer
              sudo apt-get install libsdl2-ttf-dev
-             pip3 install mediapipe
+             pip install mediapipe
              
       - name: InstallBuildozer        
         run: |
              sudo apt-get install -y python3-setuptools
-             pip3 install buildozer
-             pip3 install https://github.com/kivy/buildozer/archive/master.zip
+             pip install buildozer
+             pip install https://github.com/kivy/buildozer/archive/master.zip
              git clone https://github.com/kivy/buildozer
              cd buildozer
-             python3 setup.py build
-             pip3 install -e .
+             python setup.py build
+             pip install -e .
              export PATH=~/.local/bin/:$PATH
              . ~/.bashrc
              cd ../../
@@ -56,7 +54,7 @@ jobs:
         run: |
              cd app
              buildozer init
-             python3 ../buildozer_spec.py
+             python ../buildozer_spec.py
              cat buildozer.spec
 
       - name: Build
