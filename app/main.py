@@ -1,4 +1,4 @@
-#import mediapipe # COMMENT THIS LINE TO MAKE EVERYTHING WORK
+#import mediapipe
 
 import kivy
 from kivy.app import App
